@@ -85,8 +85,8 @@
 
 ### 2. 克隆项目
 ```bash
-git clone https://github.com/your-username/mysql-mcp-server.git
-cd mysql-mcp-server
+git clone https://github.com/liyq0307/MySQLMCP.git
+cd MySQLMCP
 ```
 
 ### 3. 安装依赖
