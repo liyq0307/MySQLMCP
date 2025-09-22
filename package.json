@@ -1,0 +1,66 @@
+{
+  "name": "mysql-mcp-server",
+  "version": "1.0.0",
+  "description": "Enterprise-grade MySQL MCP server with intelligent monitoring, memory optimization, and advanced security - TypeScript implementation",
+  "main": "dist/index.js",
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "start": "node --expose-gc dist/index.js",
+    "dev": "node --expose-gc --loader ts-node/esm src/index.ts",
+    "lint": "eslint src/**/*.ts tests/**/*.ts",
+    "lint:fix": "eslint src/**/*.ts tests/**/*.ts --fix",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "test:unit": "jest tests/*.test.ts",
+    "test:integration": "jest tests/*.integration.test.ts"
+  },
+  "keywords": [
+    "mysql",
+    "mcp",
+    "fastmcp",
+    "database",
+    "monitoring",
+    "memory-optimization",
+    "security",
+    "error-classification",
+    "performance",
+    "typescript",
+    "enterprise"
+  ],
+  "author": "liyq",
+  "license": "MIT",
+  "dependencies": {
+    "archiver": "^7.0.1",
+    "async-lock": "^1.4.1",
+    "date-fns": "^4.1.0",
+    "dotenv": "^16.4.0",
+    "exceljs": "^4.4.0",
+    "fastmcp": "^2.0.0",
+    "mysql2": "^3.9.0",
+    "zod": "^3.22.0"
+  },
+  "devDependencies": {
+    "@types/archiver": "^6.0.3",
+    "@types/async-lock": "^1.4.2",
+    "@types/jest": "^29.5.0",
+    "@types/node": "^22.0.0",
+    "@types/unzipper": "^0.10.11",
+    "@typescript-eslint/eslint-plugin": "^8.39.0",
+    "@typescript-eslint/parser": "^8.39.0",
+    "eslint": "^9.32.0",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.2.0",
+    "ts-node": "^10.9.0",
+    "typescript": "^5.6.0",
+    "typescript-eslint": "^8.39.0"
+  },
+  "overrides": {
+    "glob": "^10.0.0",
+    "rimraf": "^5.0.0",
+    "inflight": "npm:@isaacs/inflight@^1.0.6",
+    "lodash.isequal": "npm:lodash@^4.17.21",
+    "fstream": "npm:tar@^7.0.0"
+  }
+}
