@@ -79,7 +79,7 @@ The server is configured through environment variables. You can choose one of th
 ### 2. Clone the Project
 ```bash
 git clone https://github.com/liyq0307/MySQLMCP.git
-cd mysql-mcp-server
+cd MySQLMCP
 ```
 
 ### 3. Install Dependencies
