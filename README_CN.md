@@ -233,7 +233,7 @@ npm run dev
   "mcpServers": {
     "mysql-mcp-ts": {
       "command": "node",
-      "args": ["/path/to/your/MySQL_MCP_TS/dist/index.js"], // 编译后的JS文件绝对路径
+      "args": ["/path/to/your/MySQLMCP_TS/dist/index.js"], // 编译后的JS文件绝对路径
       "env": {
         "MYSQL_HOST": "localhost",
         "MYSQL_USER": "your_username",
@@ -251,7 +251,7 @@ npm run dev
   "mcpServers": {
     "mysql-prod": {
       "command": "node",
-      "args": ["/path/to/your/project/dist/index.js"],
+      "args": ["/path/to/your/MySQLMCP_TS/dist/index.js"],
       "env": {
         "NODE_ENV": "production",
         "MYSQL_HOST": "prod-db-host",
@@ -1443,13 +1443,13 @@ npm run dev
 ##### 紧急情况下的队列控制
 ```json
 {
-  "action" "pause"
+  "action": "pause"
 }
 ```
 ##### 然后清空队列
 ```json
 {
-  "action" "clear"
+  "action": "clear"
 }
 ```
 ##### 负载优化调整
@@ -1947,18 +1947,24 @@ MySQLManager (中央引擎) - mysqlManager.ts
 
 #### 自动缓存调整
 ```typescript
-// 基于MemoryPressureManager的自动内存压力处理
-adjustForMemoryPressure(pressureLevel: number): void {
-  // 内存压力超过70%时减少缓存大小
-  if (pressureLevel > 0.7) {
-    this.adjustTierSizes(-0.3); // 按比例减少L1/L2大小
-    this.evictLowPriorityEntries();
+// 配置L2缓存
+configureL2Cache(
+  enabled: boolean,
+  config?: {
+    l1Size: number;    // L1缓存大小
+    l1TTL: number;     // L1缓存TTL
+    l2Size: number;    // L2缓存大小
+    l2TTL: number;     // L2缓存TTL
   }
+): void
 
-  // 压力超过85%时启用压缩
-  if (pressureLevel > 0.85) {
-    this.enableCacheCompression();
-    this.aggressiveCleanup();
+// 基于内存压力调整缓存大小
+adjustForMemoryPressure(pressureLevel: number): void {
+  const scaleFactor = Math.max(0.1, 1 - pressureLevel);
+  this.dynamic_max_size = Math.max(1, Math.floor(this.max_size * scaleFactor));
+
+  while (this.cache.size > this.dynamic_max_size) {
+    this.evictLRU();
   }
 }
 ```
@@ -2064,7 +2070,7 @@ const cleanupResult = cache.performIntelligentCleanup();
 ```typescript
 // 订阅内存压力变化
 memoryPressureManager.subscribe((pressure: number) => {
-  cache.adjustForPressure(pressure);
+  cache.adjustForMemoryPressure(pressure);
 });
 
 // 获取缓存健康状态
