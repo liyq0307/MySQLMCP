@@ -7,7 +7,7 @@
  *
  * @fileoverview 企业级性能监控系统 - 时序分析、智能告警、全方位监控
  * @author liyq
- * @version 1.0.1
+ * @version 1.0.0
  * @since 1.0.0
  * @updated 2025-09-04 - 添加CPU监控功能
  * @license MIT
